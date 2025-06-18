@@ -66,22 +66,24 @@ function App() {
                     style={{ height: "300px" }}
                   />
                   <div className="card-body overlay d-flex flex-column justify-content-center">
-                    <h5 className="card-title ">{moovie.title ? moovie.title : "Titolo non disponibile"}</h5>
+                    <h5 className="card-title text-light text-center">{moovie.title ? moovie.title : "Titolo non disponibile"}</h5>
+
                     <small className="text-light mb-1">
                       <strong>Titolo originale:</strong> {moovie.original_title.length > 20 ? moovie.original_title.slice(0, 15) + "..." : moovie.original_title}
                     </small>
                     <small className="text-light mb-1">
                       <strong>Riassunto:</strong> {moovie.overview.slice(0, 50)}...
                     </small>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        {flagAvailable(moovie.original_language) ? (
-                          <img src={`src/assets/${moovie.original_language}.svg`} alt={moovie.original_language} style={{ width: "24px", height: "16px" }} />
-                        ) : (
-                          `Lingua: ${moovie.original_language}`
-                        )}
-                      </li>
-                    </ul>
+                    <div className="text-white d-flex align-items-center gap-2">
+                      {flagAvailable(moovie.original_language) ? (
+                        <>
+                          <span>Lingua:</span>
+                          <img src={`src/assets/${moovie.original_language}.svg`} alt={moovie.original_language} style={{ width: "16px", height: "16px" }} />
+                        </>
+                      ) : (
+                        <span>Lingua: {moovie.original_language}</span>
+                      )}
+                    </div>
                     <div className="text-bg-danger text-wrap text-light d-flex align-items-center justify-content-center p-2 my-3 rounded">
                       Voto: <StarRating voto={moovie.vote_average} />
                     </div>
