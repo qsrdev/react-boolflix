@@ -1,4 +1,4 @@
-import cardList from "./components/cardList";
+// import cardList from "./components/cardList";
 import { useState } from "react";
 import axios from "axios";
 import "./App.css";
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <header>
+      <header className="">
         <nav className="navbar bg-black sticky-top" data-bs-theme="dark">
           <div className="container-fluid">
             <a className="navbar-brand">BoolFlix</a>
@@ -54,20 +54,25 @@ function App() {
       </header>
       <main>
         <div className="container">
-          <h1 className="text-center">Moovies</h1>
+          <h1 className=" text-white ">Moovies</h1>
           <div className="row row-cols-1 row-cols-md-3 row-cols-lg-6 p-2">
             {moovies.map((moovie) => (
               <div className="col mb-4">
-                <div key={moovie.id} className="card h-100">
+                <div key={moovie.id} className="position-relative card h-100">
                   <img
                     src={moovie.poster_path ? `https://image.tmdb.org/t/p/w342${moovie.poster_path}` : placeHolder}
-                    className="card-img-top w-100 object-fit-cover"
+                    className="card-img-top w-100 object-fit-cover img-fluid rounded"
                     alt={`Immagine di ${moovie.title}`}
                     style={{ height: "300px" }}
                   />
-                  <div className="card-body">
+                  <div className="card-body overlay d-flex flex-column justify-content-center">
                     <h5 className="card-title ">{moovie.title ? moovie.title : "Titolo non disponibile"}</h5>
-                    <small className="text-body-secondary">{`Also known as ${moovie.original_title}`}</small>
+                    <small className="text-light mb-1">
+                      <strong>Titolo originale:</strong> {moovie.original_title.length > 20 ? moovie.original_title.slice(0, 15) + "..." : moovie.original_title}
+                    </small>
+                    <small className="text-light mb-1">
+                      <strong>Riassunto:</strong> {moovie.overview.slice(0, 50)}...
+                    </small>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
                         {flagAvailable(moovie.original_language) ? (
@@ -77,15 +82,15 @@ function App() {
                         )}
                       </li>
                     </ul>
-                    <div className="card-footer">
-                      <StarRating voto={moovie.vote_average} />
+                    <div className="text-bg-danger text-wrap text-light d-flex align-items-center justify-content-center p-2 my-3 rounded">
+                      Voto: <StarRating voto={moovie.vote_average} />
                     </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <h1 className="text-center">Series</h1>
+          <h1 className="text-white my-2">Series</h1>
           <div className="row row-cols-1 row-cols-md-3 row-cols-lg-6 p-2">
             {tvseries.map((tvseries) => (
               <div className="col mb-4">
@@ -96,20 +101,27 @@ function App() {
                     alt={`Immagine di ${tvseries.name}`}
                     style={{ height: "300px" }}
                   />
-                  <div className="card-body">
-                    <h5 className="card-title ">{tvseries.name ? tvseries.name : "Titolo non disponibile"}</h5>
-                    <small className="text-body-secondary">{`Also known as ${tvseries.original_name}`}</small>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        {flagAvailable(tvseries.original_language) ? (
-                          <img src={`src/assets/${tvseries.original_language}.svg`} alt={tvseries.original_language} style={{ width: "24px", height: "16px" }} />
-                        ) : (
-                          `Lingua: ${tvseries.original_language}`
-                        )}
-                      </li>
-                    </ul>
-                    <div className="card-footer">
-                      <StarRating voto={tvseries.vote_average} />
+                  <div className="card-body overlay d-flex flex-column justify-content-center">
+                    <h5 className="card-title text-light text-center">{tvseries.name ? tvseries.name : "Titolo non disponibile"}</h5>
+                    <small className="text-light mb-1">
+                      <strong>Titolo originale:</strong> {tvseries.original_name}
+                    </small>
+                    <small className="text-light mb-1">
+                      <strong>Riassunto</strong> {tvseries.overview.slice(0, 50)}...
+                    </small>
+                    <div className="text-white d-flex align-items-center gap-2">
+                      {flagAvailable(tvseries.original_language) ? (
+                        <>
+                          <span>Lingua:</span>
+                          <img src={`src/assets/${tvseries.original_language}.svg`} alt={tvseries.original_language} style={{ width: "16px", height: "16px" }} />
+                        </>
+                      ) : (
+                        <span>Lingua: {tvseries.original_language}</span>
+                      )}
+                    </div>
+
+                    <div className="text-bg-danger text-wrap text-light d-flex align-items-center justify-content-center p-2 my-3 rounded">
+                      Voto: <StarRating voto={tvseries.vote_average} />
                     </div>
                   </div>
                 </div>

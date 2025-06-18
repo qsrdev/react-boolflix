@@ -3,3 +3,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}

@@ -8,7 +8,7 @@ const StarRating = ({ voto }) => {
   return (
     <div className="flex gap-1 text-yellow-500 text-xl">
       {[...Array(5)].map((_, i) => (
-        <FontAwesomeIcon key={i} icon={i < stellePiene ? faStarSolid : faStarRegular} />
+        <FontAwesomeIcon key={i} icon={i < stellePiene ? faStarSolid : faStarRegular} style={{ color: "gold" }} />
       ))}
     </div>
   );
